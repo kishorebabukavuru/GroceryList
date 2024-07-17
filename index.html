@@ -4,12 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic List Example</title>
+  <style>
+    #panel1 {
+      max-height: 400px; /* Adjust height as needed to fit 15 items */
+      overflow-y: scroll;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    #name-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    #name-list li {
+      display: flex;
+      align-items: center;
+    }
+    #searchBox {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
- 
+  
 
   <div id="panel1">
     <h2>Select Names</h2>
+    <input type="text" id="searchBox" placeholder="Search names...">
     <ul id="name-list">
       <!-- names will be populated here -->
     </ul>
@@ -21,8 +44,7 @@
       <!-- selected names will be displayed here -->
     </ul>
   </div>
-  <button id="sendButton" disabled>Send via WhatsApp</button>
-
+<button id="sendButton" disabled>Send via WhatsApp</button>
   <script src="script.js"></script>
 </body>
 </html>
