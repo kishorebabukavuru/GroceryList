@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const selectedNames = document.querySelectorAll("#selected-names li");
     const namesArray = Array.from(selectedNames).map(item => item.textContent);
     const timestamp = new Date().toLocaleString();
-    const message = encodeURIComponent(`Selected Names (${timestamp}):\n` + namesArray.join("\n"));
+    const message = encodeURIComponent(`Selected Grocery List (${timestamp}):\n` + namesArray.join("\n"));
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, "_blank");
   });
