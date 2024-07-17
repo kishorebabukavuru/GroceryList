@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     })
     .catch(error => console.error('Error fetching file:', error));
-// Enable the send button when there are items in Panel 2
+
+  // Enable the send button when there are items in Panel 2
   const observer = new MutationObserver(() => {
     const selectedNames = document.getElementById("selected-names");
     document.getElementById("sendButton").disabled = selectedNames.childElementCount === 0;
@@ -40,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("sendButton").addEventListener("click", function() {
     const selectedNames = document.querySelectorAll("#selected-names li");
     const namesArray = Array.from(selectedNames).map(item => item.textContent);
-    const message = encodeURIComponent("Selected Names: " + namesArray.join(", "));
+    const timestamp = new Date().toLocaleString();
+    const message = encodeURIComponent(`Selected Names (${timestamp}):\n` + namesArray.join("\n"));
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, "_blank");
   });
