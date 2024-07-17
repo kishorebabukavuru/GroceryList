@@ -1,32 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
+  let names = [];
+
   fetch('names.txt')
     .then(response => response.text())
     .then(data => {
       // Split the text into an array of names based on new lines
-      const names = data.trim().split('\n');
-      
-      // populate Panel 1 with checkboxes
-      names.forEach((name) => {
-        const listItem = document.createElement("li");
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.addEventListener("change", (e) => {
-          if (e.target.checked) {
-            addNameToPanel2(name);
-          } else {
-            removeNameFromPanel2(name);
-          }
-        });
-
-        const label = document.createElement("label");
-        label.textContent = name;
-
-        listItem.appendChild(checkbox);
-        listItem.appendChild(label);
-
-        document.getElementById("name-list").appendChild(listItem);
-      });
+      names = data.trim().split('\n');
+      populateNameList(names);
     })
     .catch(error => console.error('Error fetching file:', error));
 
@@ -69,4 +49,38 @@ document.addEventListener("DOMContentLoaded", function() {
       selectedNames.removeChild(listItem);
     }
   }
+
+  // populate Panel 1 with checkboxes
+  function populateNameList(names) {
+    const nameList = document.getElementById("name-list");
+    nameList.innerHTML = '';
+    names.forEach((name) => {
+      const listItem = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          addNameToPanel2(name);
+        } else {
+          removeNameFromPanel2(name);
+        }
+      });
+
+      const label = document.createElement("label");
+      label.textContent = name;
+
+      listItem.appendChild(checkbox);
+      listItem.appendChild(label);
+
+      nameList.appendChild(listItem);
+    });
+  }
+
+  // Search box functionality
+  document.getElementById("searchBox").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
+    const filteredNames = names.filter(name => name.toLowerCase().includes(query));
+    populateNameList(filteredNames);
+  });
 });
